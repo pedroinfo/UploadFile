@@ -88,7 +88,10 @@ namespace MvcUploadFile.Controllers
                 return NotFound();
             }
 
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Employee
+                                         .Include(x => x.EmployeeAttachments)
+                                         .Where(x => x.EmployeeId == (int)id)
+                                         .FirstOrDefaultAsync();
             if (employee == null)
             {
                 return NotFound();
@@ -160,5 +163,16 @@ namespace MvcUploadFile.Controllers
         {
             return _context.Employee.Any(e => e.EmployeeId == id);
         }
+
+
+        [HttpGet]
+        public async Task<IActionResult> DownloadFile(int id)
+        {
+            var file = await _context.EmployeeAttachment
+                .FirstOrDefaultAsync(x => x.EmployeeAttachmentId == id);
+
+            return File(file.Bytes, file.ContentType, file.AttachmentName);
+        }
+
     }
 }

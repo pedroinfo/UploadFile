@@ -26,14 +26,39 @@
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
             </div>
-
-            @foreach (var item in Model.EmployeeAttachments)
-            {
-
-            }
-
         </form>
     </div>
+    <hr />
+</div>
+
+<div class="row">
+  
+    <table class="table table-striped table-bordered table-responsive-sm">
+        <thead>
+            <tr>
+                <th scope="col">Filename</th>
+                <th scope="col">Size</th>
+                <th scope="col">File Type</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (EmployeeAttachment item in Model.EmployeeAttachments)
+            {
+            <tr>
+                <td>@item.AttachmentName</td>
+                <td>@item.ContentLenght</td>
+                <td>@item.ContentType</td>
+                <td>
+                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
+                    <button type="button" class="btn btn-primary btn-sm">View</button>
+                    <button type="button" class="btn btn-secondary btn-sm">Download</button>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </table>
+        
 </div>
 
 <div>

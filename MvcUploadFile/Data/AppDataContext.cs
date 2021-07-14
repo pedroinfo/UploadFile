@@ -34,6 +34,8 @@ namespace MvcUploadFile.Data
 
         public DbSet<Employee> Employee { get; set; }
 
+        public DbSet<EmployeeAttachment> EmployeeAttachment { get; set; }
+
 
     }
 }

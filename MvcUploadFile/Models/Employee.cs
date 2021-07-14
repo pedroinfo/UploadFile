@@ -10,6 +10,7 @@ namespace MvcUploadFile.Models
 
         public string Role { get; set; }
 
+
         public virtual IList<EmployeeAttachment> EmployeeAttachments { get; set; }
     }
 }
