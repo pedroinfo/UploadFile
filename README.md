@@ -3,6 +3,8 @@
 <hr>
 In the projects we work on, a very common situation is to store files. 
 Many organizations use a database for this and store it in column of bytes. Others use file systems and in other cases more modern technologies like amazon's S3. 
+
+
 In this repository my idea is to put some possible situations to solve this challenge.
 
 
