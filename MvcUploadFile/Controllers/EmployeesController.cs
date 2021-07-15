@@ -174,5 +174,18 @@ namespace MvcUploadFile.Controllers
             return File(file.Bytes, file.ContentType, file.AttachmentName);
         }
 
+        [HttpPost]
+        public async Task<IActionResult> DeleteFile(int id)
+        {
+            var file = new EmployeeAttachment { EmployeeAttachmentId = id };
+            var result = _context.EmployeeAttachment.Remove(file);
+            var isDeleted = await _context.SaveChangesAsync();
+
+            if (isDeleted > 0)
+                return Ok(result);
+            else
+                return Problem();
+        }
+
     }
 }

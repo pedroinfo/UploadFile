@@ -4,9 +4,7 @@
     ViewData["Title"] = "Edit";
 }
 
-<h1>Edit</h1>
-
-<h4>Employee</h4>
+<h4>Edit - Employee</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -32,33 +30,42 @@
 </div>
 
 <div class="row">
-  
-    <table class="table table-striped table-bordered table-responsive-sm">
-        <thead>
-            <tr>
-                <th scope="col">Filename</th>
-                <th scope="col">Size</th>
-                <th scope="col">File Type</th>
-                <th scope="col">Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (EmployeeAttachment item in Model.EmployeeAttachments)
-            {
-            <tr>
-                <td>@item.AttachmentName</td>
-                <td>@item.ContentLenght</td>
-                <td>@item.ContentType</td>
-                <td>
-                    <button type="button" class="btn btn-danger btn-sm">Delete</button>
-                    <button type="button" class="btn btn-primary btn-sm">View</button>
-                    <button type="button" class="btn btn-secondary btn-sm">Download</button>
-                </td>
-            </tr>
-            }
-        </tbody>
-    </table>
-        
+
+    @if (Model.EmployeeAttachments != null && Model.EmployeeAttachments.Count > 0)
+    {
+        <table class="table table-striped table-bordered table-responsive-sm">
+            <thead>
+                <tr>
+                    <th scope="col">Filename</th>
+                    <th scope="col">Size</th>
+                    <th scope="col">File Type</th>
+                    <th scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (EmployeeAttachment item in Model.EmployeeAttachments)
+                {
+                    <tr id="@item.EmployeeAttachmentId">
+                        <td>@item.AttachmentName</td>
+                        <td>@item.ContentLenght</td>
+                        <td>@item.ContentType</td>
+                        <td>
+                            <button type="button" name="btn-delete" class="btn btn-danger btn-sm">Delete</button>
+                            <button type="button" name="btn-view" class="btn btn-primary btn-sm">View</button>
+                            <button type="button" name="btn-download" class="btn btn-secondary btn-sm">Download</button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+    <div class="alert alert-danger">
+        There are no files attached
+    </div>
+    }
+
 </div>
 
 <div>
@@ -66,5 +73,69 @@
 </div>
 
 @section Scripts {
+
+    <script>
+
+
+        document.getElementsByName('btn-download').forEach((element) => {
+            element.addEventListener('click', function () {
+                var rowId = element.closest('tr').getAttribute('id');
+                window.location = '/Employees/DownloadFile/' + rowId;
+            });
+        });
+
+        document.getElementsByName('btn-delete').forEach((element) => {
+            element.addEventListener('click', function () {
+                var rowId = element.closest('tr').getAttribute('id');
+
+                bootbox.confirm({
+                    title: "Delete file?",
+                    message: "Do you want to delete this file?",
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> Cancel',
+                            className: 'btn-primary btn-sm'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> Confirm',
+                            className: 'btn-danger btn-sm'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+
+                            $.ajax({
+                                url: '/Employees/DeleteFile/' + rowId,
+                                method: 'POST',
+                                dataType: 'JSON'
+                            }).done(function (data, textStatus, jqXHR) {
+                                window.location.reload();
+                            }).fail(function (jqXHR, textStatus, errorThrown) {
+                                if (jqXHR.responseJSON) {
+                                    console.log('failed with json data');
+                                }
+                            }).always(function (dataOrjqXHR, textStatus, jqXHRorErrorThrown) {
+                                console.log('always');
+                            });
+                        }
+                    }
+                });
+
+            });
+        });
+
+        document.getElementsByName('btn-view').forEach((element) => {
+            element.addEventListener('click', function () {
+                var rowId = element.closest('tr').getAttribute('id');
+                window.location = '/Employees/View/' + rowId;
+            });
+        });
+
+
+    </script>
+
+
+
+
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

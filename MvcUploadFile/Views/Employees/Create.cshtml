@@ -4,12 +4,11 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>Employee</h4>
+<h4>Create - Employee</h4>
 <hr />
 <div class="row">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
@@ -25,7 +24,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label">Attachment</label>
+                <label class="control-label">Attachments</label>
                 <input type="file" name="File" class="form-control" multiple />
             </div>
             
