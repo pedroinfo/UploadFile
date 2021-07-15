@@ -22,8 +22,12 @@ In this repository my idea is to put some possible situations to solve this chal
 
 - Store Files using LiteDB :)
 
-- Upload files to a WebApi.
+- Upload files to a WebApi
 
+- Store files in MongoDB
+
+
+in progress...
 
 
 Feel free to comment the code or send me any suggestions.
