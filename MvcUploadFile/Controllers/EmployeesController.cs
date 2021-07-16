@@ -178,13 +178,38 @@ namespace MvcUploadFile.Controllers
         public async Task<IActionResult> DeleteFile(int id)
         {
             var file = new EmployeeAttachment { EmployeeAttachmentId = id };
-            var result = _context.EmployeeAttachment.Remove(file);
+          _context.EmployeeAttachment.Remove(file);
             var isDeleted = await _context.SaveChangesAsync();
 
             if (isDeleted > 0)
-                return Ok(result);
+                return Ok("File deleted.");
             else
-                return Problem();
+                return Problem("fail...");
+        }
+
+
+        [HttpPost]
+        public async Task<IActionResult> SaveFileWithAjax(int employeeId)
+        {
+            var employeeAttachmentList = new List<EmployeeAttachment>();
+
+            foreach (var item in Request.Form.Files)
+            {
+                var employeeAttachment = new EmployeeAttachment
+                {
+                    EmployeeId = employeeId,
+                    AttachmentName = item.FileName,
+                    ContentLenght = item.Length,
+                    ContentType = item.ContentType,
+                    Bytes = await item.GetBytes()
+                };
+                employeeAttachmentList.Add(employeeAttachment);
+            }
+
+            _context.EmployeeAttachment.AddRange(employeeAttachmentList);
+            var result = await _context.SaveChangesAsync();
+
+            return Ok(result);
         }
 
     }
