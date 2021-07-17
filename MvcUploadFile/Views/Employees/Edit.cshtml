@@ -46,7 +46,7 @@
                 </div>
             </div>
             <div class="col-md-2">
-                <button type="button" id="btn-upload" class="btn btn-primary btn-sm form-control">Save</button>
+                <button type="button" id="btn-upload" class="btn btn-primary btn-sm form-control">Save with ajax</button>
             </div>
             <div class="col-md-4">
                 <div class="progress mb-5" style="height: 20px; display:none" id="div-progresbar">
@@ -194,14 +194,14 @@
                         if (result) {
                             $.ajax({
                                 url: '/Employees/DeleteFile/' + rowId,
-                                method: 'POST',
-                                dataType: 'JSON'
+                                method: 'POST'
                             }).done(function (data, textStatus, jqXHR) {
-                                console.log(jqXHR);
+                                setTimeout(function () {
+                                    dialog.modal('hide');
+                                    window.location.reload();
+                                }, 500);
                             }).fail(function (jqXHR, textStatus, errorThrown) {
-                                if (jqXHR.responseJSON) {
-                                    console.log('failed with json data');
-                                }
+                                console.log(textStatus);
                             });
                         }
                         return false;
@@ -214,19 +214,35 @@
         document.getElementsByName('btn-view').forEach((element) => {
             element.addEventListener('click', function () {
                 var rowId = element.closest('tr').getAttribute('id');
-                window.location = '/Employees/View/' + rowId;
+
+                $.ajax({
+                    url: '/Employees/ViewFile/' + rowId,
+                    method: 'GET'
+                }).done(function (data, textStatus, jqXHR) {
+
+                    var mimeTypesAllowed = ['image/jpeg', 'image/png', 'image/gif', 'image/png', 'image/tiff'];
+
+                    if (mimeTypesAllowed.indexOf(data.contentType) >= 0) {
+                        bootbox.alert("Image<br/><img src='data:" + data.contentType + ";base64," + data.bytes + "'>",
+                            function () {});
+                    }
+                    else {
+                        bootbox.alert("mimetype is not allowed: " + data.contentType);
+                    }
+                }).fail(function (jqXHR, textStatus, errorThrown) {
+                    console.log(textStatus);
+                });
+
+                /*
+                bootbox.alert("Do you like my image?<br/><img src='data:image/jpeg;base64', value=''>", function () {
+                    console.log("It was awesome!");
+                });
+                */
+
             });
         });
 
-       
-
-
-
-
     </script>
-
-
-
 
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -153,7 +154,10 @@ namespace MvcUploadFile.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var employee = await _context.Employee.FindAsync(id);
+            var employee = await _context.Employee
+                .Include(x=>x.EmployeeAttachments)
+                .FirstOrDefaultAsync(x=>x.EmployeeId == id);
+
             _context.Employee.Remove(employee);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -178,7 +182,7 @@ namespace MvcUploadFile.Controllers
         public async Task<IActionResult> DeleteFile(int id)
         {
             var file = new EmployeeAttachment { EmployeeAttachmentId = id };
-          _context.EmployeeAttachment.Remove(file);
+            _context.EmployeeAttachment.Remove(file);
             var isDeleted = await _context.SaveChangesAsync();
 
             if (isDeleted > 0)
@@ -209,8 +213,19 @@ namespace MvcUploadFile.Controllers
             _context.EmployeeAttachment.AddRange(employeeAttachmentList);
             var result = await _context.SaveChangesAsync();
 
+
             return Ok(result);
         }
 
+       
+        [HttpGet]
+        public async Task<IActionResult> ViewFile(int id)
+        {
+            var file = await _context.EmployeeAttachment.FindAsync(id);
+
+            var obj = new { bytes = Convert.ToBase64String(file.Bytes), contentType = file.ContentType };
+
+            return Ok(obj);
+        }
     }
 }
