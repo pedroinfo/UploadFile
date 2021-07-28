@@ -18,7 +18,7 @@ In this repository my idea is to put some possible situations to solve this chal
 
 - Upload of files using a progress bar
 
-- Upload of files using a Desktop Application (Windows Forms). ~~I hate stored procedures in general~~, but sometimes we need use. 
+- Upload of files using a Desktop Application with StoredProcedures(Windows Forms). ~~I hate stored procedures in general~~, but sometimes we need use. 
 
 - Store Files using LiteDB :)
 
