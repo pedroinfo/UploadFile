@@ -4,10 +4,6 @@ using Microsoft.Extensions.Configuration;
 using MongoDB.Driver;
 using MongoDB.Driver.GridFS;
 using MvcUploadToMongoDB.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MvcUploadToMongoDB.Controllers
 {
@@ -15,7 +11,7 @@ namespace MvcUploadToMongoDB.Controllers
     {
         private readonly IMongoCollection<Product> _productCollection;
         private readonly IMongoClient _mongoClient;
-        private readonly GridFSBucket gridFS;
+        private readonly IGridFSBucket _gridFsBucket;
 
         private readonly IConfiguration _configuration;
 
@@ -24,29 +20,28 @@ namespace MvcUploadToMongoDB.Controllers
             _configuration = configuration;
             _mongoClient = mongoClient;
             var database = mongoClient.GetDatabase(_configuration.GetSection("MongoDBName").Value);
-            gridFS = new GridFSBucket(database);
+
+            _productCollection = database.GetCollection<Product>("product");
+
+            _gridFsBucket = new GridFSBucket(database);
         }
         public ActionResult Index()
         {
-           // var file = System.IO.File.ReadAllBytes(@"D:\file.zip");
-         //   gridFS.UploadFromBytes("file.zip", file);
+            var list = _productCollection.AsQueryable().ToList();
 
-            return View();
+            return View(list);
         }
 
-        // GET: ProductsController1/Details/5
         public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: ProductsController1/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: ProductsController1/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(IFormCollection collection)
@@ -82,13 +77,11 @@ namespace MvcUploadToMongoDB.Controllers
             }
         }
 
-        // GET: ProductsController1/Delete/5
         public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: ProductsController1/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
