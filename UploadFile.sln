@@ -5,15 +5,17 @@ VisualStudioVersion = 16.0.30717.126
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcUploadFile", "MvcUploadFile\MvcUploadFile.csproj", "{C28FCF86-1BFA-4705-93FA-97F4C902132E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcUploadToFileSystem", "MvcUploadToFileSystem\MvcUploadToFileSystem.csproj", "{40BB5914-E37B-4399-90F3-D10864392881}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcUploadToFileSystem", "MvcUploadToFileSystem\MvcUploadToFileSystem.csproj", "{40BB5914-E37B-4399-90F3-D10864392881}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MvcUploadToMongoDB", "MvcUploadToMongoDB\MvcUploadToMongoDB.csproj", "{568ED847-42B6-4B90-AB55-7EE6BF812D39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MvcUploadToMongoDB", "MvcUploadToMongoDB\MvcUploadToMongoDB.csproj", "{568ED847-42B6-4B90-AB55-7EE6BF812D39}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ASP.NET MVC Core", "ASP.NET MVC Core", "{AB958B5C-FC0B-44EC-A8EB-9D8C64180A58}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows Forms", "Windows Forms", "{3F065F95-4A47-42EF-B6E8-4434DE367B69}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi With Angular", "WebApi With Angular", "{5121AB0E-4482-47B2-9A4E-900C302952BB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FormsUpload", "FormsUpload\FormsUpload.csproj", "{96D26518-BE8F-486B-AEBC-7923FB0FDFA5}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{568ED847-42B6-4B90-AB55-7EE6BF812D39}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{568ED847-42B6-4B90-AB55-7EE6BF812D39}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{568ED847-42B6-4B90-AB55-7EE6BF812D39}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96D26518-BE8F-486B-AEBC-7923FB0FDFA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96D26518-BE8F-486B-AEBC-7923FB0FDFA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96D26518-BE8F-486B-AEBC-7923FB0FDFA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96D26518-BE8F-486B-AEBC-7923FB0FDFA5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -41,6 +47,7 @@ Global
 		{C28FCF86-1BFA-4705-93FA-97F4C902132E} = {AB958B5C-FC0B-44EC-A8EB-9D8C64180A58}
 		{40BB5914-E37B-4399-90F3-D10864392881} = {AB958B5C-FC0B-44EC-A8EB-9D8C64180A58}
 		{568ED847-42B6-4B90-AB55-7EE6BF812D39} = {AB958B5C-FC0B-44EC-A8EB-9D8C64180A58}
+		{96D26518-BE8F-486B-AEBC-7923FB0FDFA5} = {3F065F95-4A47-42EF-B6E8-4434DE367B69}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {04310CA5-0634-45E1-BD63-DDB999B2AB0C}
