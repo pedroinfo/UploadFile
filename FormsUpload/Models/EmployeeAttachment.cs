@@ -1,6 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-
-namespace MvcUploadFile.Models
+﻿namespace FormsUpload.Models
 {
     public class EmployeeAttachment
     {
@@ -12,9 +10,10 @@ namespace MvcUploadFile.Models
 
         public string ContentType { get; set; }
 
-        public long ContentLenght { get; set;  }
+        public long ContentLenght { get; set; }
 
         public virtual int EmployeeId { get; set; }
-        public virtual Employee Employee { get; set; } 
+
+        public virtual Employee Employee { get; set; }
     }
 }
