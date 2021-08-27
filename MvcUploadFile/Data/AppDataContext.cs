@@ -1,9 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Logging.Console;
 using MvcUploadFile.Models;
-using System;
-using System.Diagnostics;
 
 namespace MvcUploadFile.Data
 {
