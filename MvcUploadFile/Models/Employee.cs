@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace MvcUploadFile.Models
 {
@@ -6,8 +7,10 @@ namespace MvcUploadFile.Models
     {
         public int EmployeeId { get; set; }
 
+        [Required]
         public string Name { get; set; }
 
+        [Required]
         public string Role { get; set; }
 
 
